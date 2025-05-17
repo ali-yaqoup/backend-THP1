@@ -22,11 +22,11 @@ return new class extends Migration
             $table->string('category');
             $table->string('location');
             $table->string('attachments')->nullable();
-
+            $table->string('status')->default('active');
             $table->timestamps();
+
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
-
     }
 
     /**

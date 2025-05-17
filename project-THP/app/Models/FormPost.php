@@ -10,8 +10,8 @@ class FormPost extends Model
 {
     use HasFactory;
 
-    protected $table = 'form_posts';
     protected $primaryKey = 'post_id';
+    protected $table = 'form_posts';
 
     protected $fillable = [
         'user_id',
@@ -22,7 +22,9 @@ class FormPost extends Model
         'deadline',
         'category',
         'location',
-        'attachments',
+        'attachments'
+        , 'status'
+
     ];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
