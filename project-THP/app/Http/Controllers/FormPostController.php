@@ -31,8 +31,8 @@ class FormPostController extends Controller
             $postData['attachments'] = '/assets/' . $filename;
         }
 
-        $postData['user_id'] = 1; // مؤقتًا إلى أن تربطه بالمستخدم الحقيقي
-        $postData['status'] = 'active'; // 👈 تلقائيًا active عند النشر
+        $postData['user_id'] = 1;
+        $postData['status'] = 'active';
 
         $post = FormPost::create($postData);
 

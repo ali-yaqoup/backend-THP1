@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function register(RegisterRequest $request)
+    public function register(RegisterRequest $request): \Illuminate\Http\JsonResponse
     {
         try {
 

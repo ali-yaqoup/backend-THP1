@@ -12,7 +12,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// إدارة المنشورات
+
 Route::post('/posts', [FormPostController::class, 'store']);
 Route::get('/posts', [FormPostController::class, 'index']);
 Route::delete('/posts/{id}', [FormPostController::class, 'destroy']);
