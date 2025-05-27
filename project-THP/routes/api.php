@@ -3,6 +3,7 @@ use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+<<<<<<< HEAD
 use App\Models\User;
 use Illuminate\Auth\Events\Verified;
 use App\Http\Controllers\AuthController;
@@ -44,3 +45,20 @@ Route::post('/login-step1', [AuthController::class, 'loginStep1']); // البر�
 Route::post('/login-step2', [AuthController::class, 'loginStep2']); // التحقق من الرمز
 Route::post('/password/send-otp', [AuthController::class, 'sendResetPasswordOtp']);
 Route::post('/password/reset', [AuthController::class, 'resetPassword']);
+=======
+use App\Http\Controllers\FormPostController;
+
+// تسجيل مستخدم جديد
+Route::post('/register', [UserController::class, 'register']);
+
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
+});
+
+// إدارة المنشورات
+Route::post('/posts', [FormPostController::class, 'store']);
+Route::get('/posts', [FormPostController::class, 'index']);
+Route::delete('/posts/{id}', [FormPostController::class, 'destroy']);
+Route::put('/posts/{id}', [FormPostController::class, 'update']);
+Route::get('/posts/{id}', [FormPostController::class, 'show']);
+>>>>>>> 9fdc36924863b44b580e2bb76b1140d3152c56dc
