@@ -1,30 +1,33 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+
     public function register(RegisterRequest $request)
     {
         try {
-
-            $validated = $request->validated();
-
-
+            // إنشاء المستخدم
             $user = User::create([
-                'full_name' => $validated['full_name'],
-                'username' => $validated['username'],
-                'email' => $validated['email'],
-                'password' => Hash::make($validated['password']),
-                'user_type' => $validated['user_type'],
+                'full_name' => $request->full_name,
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'user_type' => $request->user_type,
             ]);
 
+            // إرسال رابط التحقق عبر البريد الإلكتروني
+            $user->sendEmailVerificationNotification();
+
             return response()->json([
-                'message' => 'User registered successfully!',
+                'message' => 'User registered successfully! Please check your email to verify your account.',
                 'user' => $user
             ], 201);
         } catch (\Exception $e) {

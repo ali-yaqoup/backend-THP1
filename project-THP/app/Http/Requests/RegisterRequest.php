@@ -17,7 +17,8 @@ class RegisterRequest extends FormRequest
             'username' => 'required|string|max:50|unique:users,username',
             'email' => 'required|email|max:100|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
-            'user_type' => 'required|in:job_owner,artisan'
+            'user_type' => 'required|in:job_owner,artisan',
+            'status' => 'in:active,inactive'
         ];
     }
 }
