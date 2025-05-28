@@ -21,6 +21,13 @@ Route::put('/form-posts/{id}', [FormPostController::class, 'update']);
 Route::delete('/form-posts/{id}', [FormPostController::class, 'destroy']);
 Route::get('/form-posts-deleted-count', [FormPostController::class, 'countDeleted']);
 
+
+Route::post('/posts', [FormPostController::class, 'store']);
+Route::get('/posts', [FormPostController::class, 'index']);
+Route::delete('/posts/{id}', [FormPostController::class, 'destroy']);
+Route::put('/posts/{id}', [FormPostController::class, 'update']);
+Route::get('/posts/{id}', [FormPostController::class, 'show']);
+
 // Bids
 Route::get('/posts/bids/{postId}', [BidController::class, 'getBidsByPost']);
 Route::put('/bids/{id}/status', [BidController::class, 'updateStatus']);
