@@ -1,17 +1,15 @@
 <?php
 
 namespace App\Models;
-
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 
+
 class FormPost extends Model
 {
     use HasFactory;
-
-    protected $primaryKey = 'post_id';
-    protected $table = 'form_posts';
 
     protected $fillable = [
         'user_id',
@@ -22,14 +20,21 @@ class FormPost extends Model
         'deadline',
         'category',
         'location',
-        'attachments'
-        , 'status'
-
+        'attachments',
+        'status'
     ];
 
-    public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    protected $casts = [
+        'created_at' => 'datetime:Y-m-d\TH:i:s\Z',
+        'deadline' => 'date',
+    ];
+
+
+
+
+    public function user()
     {
-        return $this->belongsTo(User::class, 'user_id');
+        return $this->belongsTo(User::class);
     }
     public function bids(): \Illuminate\Database\Eloquent\Relations\HasMany
     {

@@ -8,7 +8,32 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function register(RegisterRequest $request): \Illuminate\Http\JsonResponse
+    public function login(Request $request)
+    {
+        $credentials = $request->only('email', 'password');
+
+        $user = User::where('email', $credentials['email'])->first();
+
+        if (!$user || !Hash::check($credentials['password'], $user->password)) {
+            return response()->json([
+                'message' => 'Invalid email or password.'
+            ], 401);
+        }
+
+        if ($user->status !== 'approved') {
+            return response()->json([
+                'message' => 'Your account is not approved or has been rejected.',
+                'status' => $user->status
+            ], 403);
+        }
+
+
+        return response()->json([
+            'message' => 'Login successful.',
+            'user' => $user
+        ], 200);
+    }
+    public function register(RegisterRequest $request)
     {
         try {
 
@@ -21,7 +46,9 @@ class UserController extends Controller
                 'email' => $validated['email'],
                 'password' => Hash::make($validated['password']),
                 'user_type' => $validated['user_type'],
+                'status' => 'pending',
             ]);
+
 
             return response()->json([
                 'message' => 'User registered successfully!',
