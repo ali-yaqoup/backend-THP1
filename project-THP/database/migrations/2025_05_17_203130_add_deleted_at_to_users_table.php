@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('form_posts', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('users', function (Blueprint $table) {
+            $table->softDeletes(); // ✅ هذا يضيف عمود deleted_at
         });
     }
 
@@ -22,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('form_posts');
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropSoftDeletes(); // ✅ هذا يحذف العمود عند rollback
+        });
     }
 };

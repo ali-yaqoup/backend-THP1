@@ -31,8 +31,8 @@ class FormPostController extends Controller
             $postData['attachments'] = '/assets/' . $filename;
         }
 
-        $postData['user_id'] = 1; // مؤقتًا إلى أن تربطه بالمستخدم الحقيقي
-        $postData['status'] = 'active'; // 👈 تلقائيًا active عند النشر
+        $postData['user_id'] = 1;
+        $postData['status'] = 'active';
 
         $post = FormPost::create($postData);
 
@@ -41,13 +41,14 @@ class FormPostController extends Controller
 
     public function index(): \Illuminate\Http\JsonResponse
     {
-        $posts = FormPost::all();
+
+        $posts = FormPost::with('user')->get();
         return response()->json($posts);
     }
 
     public function show($id): \Illuminate\Http\JsonResponse
     {
-        $post = FormPost::find($id);
+        $post = FormPost::with('user')->find($id);
         if (!$post) {
             return response()->json(['message' => 'Post not found'], 404);
         }
