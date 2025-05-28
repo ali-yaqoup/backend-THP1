@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BidController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
@@ -19,6 +20,10 @@ Route::post('/form-posts', [FormPostController::class, 'store']);
 Route::put('/form-posts/{id}', [FormPostController::class, 'update']);
 Route::delete('/form-posts/{id}', [FormPostController::class, 'destroy']);
 Route::get('/form-posts-deleted-count', [FormPostController::class, 'countDeleted']);
+
+// Bids
+Route::get('/posts/bids/{postId}', [BidController::class, 'getBidsByPost']);
+Route::put('/bids/{id}/status', [BidController::class, 'updateStatus']);
 
 // Admin - Users & Form Posts Management
 Route::get('/admin/users', [AdminController::class, 'getAllUsers']);

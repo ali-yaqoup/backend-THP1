@@ -36,4 +36,10 @@ class FormPost extends Model
     {
         return $this->belongsTo(User::class);
     }
+    public function bids(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(Bid::class, 'post_id', 'post_id');
+    }
+
+
 }
