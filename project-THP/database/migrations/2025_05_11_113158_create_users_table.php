@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->string('email', 100)->unique();
             $table->string('password');
             $table->enum('user_type', ['job_owner', 'artisan']);
-            $table->enum('status', ['pending', 'approved', 'rejected'])->nullable(); // ✅ مضاف جديد
+            $table->enum('status', ['pending', 'approved', 'rejected'])->nullable();
             $table->timestamps();
         });
     }

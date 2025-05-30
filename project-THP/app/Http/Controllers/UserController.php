@@ -6,10 +6,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Hash;
 
-class UserController extends Controller
+class UserController extends Controllerjobs
 {
     public function login(Request $request)
     {
+
+
+
         $credentials = $request->only('email', 'password');
 
         $user = User::where('email', $credentials['email'])->first();
