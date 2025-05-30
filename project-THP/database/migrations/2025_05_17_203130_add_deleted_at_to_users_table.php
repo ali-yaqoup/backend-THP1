@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->softDeletes(); // ✅ هذا يضيف عمود deleted_at
+            $table->softDeletes(); 
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropSoftDeletes(); // ✅ هذا يحذف العمود عند rollback
+            $table->dropSoftDeletes();
         });
     }
 };
