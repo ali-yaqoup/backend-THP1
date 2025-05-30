@@ -17,7 +17,12 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+<<<<<<< Updated upstream
             $table->rememberToken();
+=======
+            $table->enum('user_type', ['job_owner', 'artisan','admain']);
+            $table->enum('status', ['active', 'inactive','pending','approved','rejected'])->default('inactive');
+>>>>>>> Stashed changes
             $table->timestamps();
         });
 
