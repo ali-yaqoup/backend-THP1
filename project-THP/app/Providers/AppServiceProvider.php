@@ -19,9 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-<<<<<<< Updated upstream
-        Schema::defaultStringLength(191);
-=======
+
         
         if ($this->app->environment('local')) {
             URL::forceRootUrl(config('app.url')); 
@@ -30,6 +28,6 @@ class AppServiceProvider extends ServiceProvider
         }
 
         
->>>>>>> Stashed changes
+
     }
 }
