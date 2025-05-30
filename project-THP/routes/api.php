@@ -13,6 +13,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+
+
 // Form Posts (Public/User)
 Route::get('/form-posts', [FormPostController::class, 'index']);
 Route::get('/form-posts/{id}', [FormPostController::class, 'show']);
