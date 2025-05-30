@@ -48,7 +48,7 @@ Route::get('/admin/form-posts-count', [AdminController::class, 'countFormPosts']
 Route::get('/admin/form-posts-deleted-count', [AdminController::class, 'countRemovedPosts']);
 Route::get('/admin/artisan-count', [AdminController::class, 'countArtisans']);
 
-
+// Admin
 Route::get('/admin/user-count', [AdminController::class, 'countUsers']);
 Route::get('/admin/users-deleted-count', [AdminController::class, 'countDeletedUsers']);
 Route::get('/admin/user-registrations-per-month', [AdminController::class, 'getUserRegistrationsPerMonth']);
