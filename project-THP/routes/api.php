@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Controllers\BidController;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
+
+
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\FormPostController;
 use App\Http\Controllers\AdminController;
 
-// User Registration & Auth
+
+
 Route::post('/register', [UserController::class, 'register']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -47,7 +47,10 @@ Route::delete('/admin/form-posts/{id}', [AdminController::class, 'deleteFormPost
 Route::get('/admin/form-posts-count', [AdminController::class, 'countFormPosts']);
 Route::get('/admin/form-posts-deleted-count', [AdminController::class, 'countRemovedPosts']);
 Route::get('/admin/artisan-count', [AdminController::class, 'countArtisans']);
+
+
 Route::get('/admin/user-count', [AdminController::class, 'countUsers']);
 Route::get('/admin/users-deleted-count', [AdminController::class, 'countDeletedUsers']);
 Route::get('/admin/user-registrations-per-month', [AdminController::class, 'getUserRegistrationsPerMonth']);
 Route::get('/admin/user-stats', [AdminController::class, 'getUserStats']);
+

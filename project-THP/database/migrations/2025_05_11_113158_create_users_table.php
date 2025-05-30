@@ -13,8 +13,13 @@ return new class extends Migration {
             $table->string('username', 50)->unique();
             $table->string('email', 100)->unique();
             $table->string('password');
-            $table->enum('user_type', ['job_owner', 'artisan']);
-            $table->enum('status', ['pending', 'approved', 'rejected'])->nullable();
+
+            $table->rememberToken();
+
+            $table->enum('user_type', ['job_owner', 'artisan','admain']);
+            $table->enum('status', ['active', 'inactive','pending','approved','rejected'])->default('inactive');
+
+
             $table->timestamps();
         });
     }
