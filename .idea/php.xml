@@ -129,6 +129,9 @@
       <path value="$PROJECT_DIR$/project-THP/vendor/guzzlehttp/psr7" />
       <path value="$PROJECT_DIR$/project-THP/vendor/guzzlehttp/promises" />
       <path value="$PROJECT_DIR$/project-THP/vendor/guzzlehttp/uri-template" />
+      <path value="$PROJECT_DIR$/project-THP/vendor/spatie/laravel-tail" />
+      <path value="$PROJECT_DIR$/project-THP/vendor/spatie/ssh" />
+      <path value="$PROJECT_DIR$/project-THP/vendor/spatie/laravel-package-tools" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />
