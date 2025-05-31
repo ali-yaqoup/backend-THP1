@@ -12,14 +12,11 @@ return new class extends Migration {
             $table->string('full_name', 100);
             $table->string('username', 50)->unique();
             $table->string('email', 100)->unique();
+            $table->timestamp('email_verified_at')->nullable(); // هذا العمود مضاف هنا
             $table->string('password');
-
             $table->rememberToken();
-
-            $table->enum('user_type', ['job_owner', 'artisan','admain']);
+            $table->enum('user_type', ['job_owner', 'artisan','admin']);
             $table->enum('status', ['active', 'inactive','pending','approved','rejected'])->default('inactive');
-
-
             $table->timestamps();
         });
     }
