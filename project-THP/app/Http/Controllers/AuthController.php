@@ -15,7 +15,7 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
 
         if (!$user || !Hash::check($request->password, $user->password)) {
-            return response()->json(['message' => 'Invalid credentials'], 401);
+            return response()->json(['message' => 'بيانات غير صحيحة'], 401);
         }
 
         $otp = rand(100000, 999999);
@@ -30,32 +30,49 @@ class AuthController extends Controller
 
         $user->notify(new SendLoginOtp($otp));
 
-        return response()->json(['message' => 'OTP has been sent to your email']);
+        return response()->json(['message' => 'تم إرسال رمز التحقق إلى بريدك الإلكتروني']);
     }
 
     public function loginStep2(Request $request)
     {
+        // تحقق من صحة OTP وصلاحيته
         $otpRecord = LoginOtp::where('email', $request->email)
             ->where('otp', $request->otp)
             ->where('expires_at', '>', now())
             ->first();
 
         if (!$otpRecord) {
-            return response()->json(['message' => 'Invalid or expired OTP'], 401);
+            return response()->json(['message' => 'رمز التحقق غير صحيح أو منتهي'], 401);
         }
 
+        // جلب المستخدم حسب البريد الإلكتروني
         $user = User::where('email', $request->email)->first();
-        $token = $user->createToken('auth_token')->plainTextToken;
 
+        if (!$user) {
+            return response()->json(['message' => 'المستخدم غير موجود'], 404);
+        }
+
+        // إنشاء توكن جديد
+        $tokenResult = $user->createToken('auth_token');
+        $token = $tokenResult->plainTextToken;
+
+        // حذف سجل OTP بعد التأكد من صحته
         $otpRecord->delete();
 
+        // التحقق من وجود التوكن في قاعدة البيانات
+        $tokenExists = \DB::table('personal_access_tokens')
+            ->where('tokenable_id', $user->id)
+            ->where('name', 'auth_token')
+            ->exists();
+
         return response()->json([
-            'message' => 'Login successful',
+            'message' => 'تم تسجيل الدخول بنجاح',
             'token' => $token,
+            'token_stored_in_db' => $tokenExists,
             'user' => $user
         ]);
     }
-
+    // ✅ إرسال رمز التحقق لإعادة تعيين كلمة المرور
     public function sendResetPasswordOtp(Request $request)
     {
         $request->validate([
@@ -75,9 +92,10 @@ class AuthController extends Controller
         $user = User::where('email', $request->email)->first();
         $user->notify(new SendLoginOtp($otp));
 
-        return response()->json(['message' => 'OTP has been sent to your email']);
+        return response()->json(['message' => 'تم إرسال رمز التحقق إلى بريدك الإلكتروني']);
     }
 
+    // ✅ إعادة تعيين كلمة المرور باستخدام الرمز
     public function resetPassword(Request $request)
     {
         $request->validate([
@@ -92,7 +110,7 @@ class AuthController extends Controller
             ->first();
 
         if (!$otpRecord) {
-            return response()->json(['message' => 'Invalid or expired OTP'], 401);
+            return response()->json(['message' => 'رمز التحقق غير صحيح أو منتهي'], 401);
         }
 
         $user = User::where('email', $request->email)->first();
@@ -102,6 +120,7 @@ class AuthController extends Controller
 
         $otpRecord->delete();
 
-        return response()->json(['message' => 'Password has been reset successfully']);
+        return response()->json(['message' => 'تم إعادة تعيين كلمة المرور بنجاح']);
     }
 }
+
