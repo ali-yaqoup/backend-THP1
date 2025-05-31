@@ -24,7 +24,7 @@ class BidController extends Controller
 
     public function getBidsByPost($postId): \Illuminate\Http\JsonResponse
     {
-        $bids = Bid::with(['formPost', 'user']) // 👈 المهم هون
+        $bids = Bid::with(['formPost', 'user']) 
         ->where('post_id', $postId)
             ->get();
 

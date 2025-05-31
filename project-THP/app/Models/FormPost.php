@@ -11,7 +11,9 @@ class FormPost extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $primaryKey = 'post_id';
+
+    protected $primaryKey = 'post_id'; 
+
 
     protected $fillable = [
         'user_id',

@@ -9,14 +9,14 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::table('form_posts', function (Blueprint $table) {
-            $table->softDeletes(); // يضيف deleted_at
+            $table->softDeletes(); 
         });
     }
 
     public function down(): void
     {
         Schema::table('form_posts', function (Blueprint $table) {
-            $table->dropSoftDeletes(); // يحذف deleted_at
+            $table->dropSoftDeletes(); 
         });
     }
 };

@@ -21,9 +21,7 @@ class UserFactory extends Factory
         ];
     }
 
-    /**
-     * إرجاع حالة البريد الإلكتروني كغير مُحقق.
-     */
+    
     public function unverified(): self
     {
         return $this->state(fn (array $attributes) => [
