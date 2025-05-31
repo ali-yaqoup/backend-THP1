@@ -121,6 +121,9 @@
       <excludeFolder url="file://$MODULE_DIR$/project-THP/vendor/vlucas/phpdotenv" />
       <excludeFolder url="file://$MODULE_DIR$/project-THP/vendor/voku/portable-ascii" />
       <excludeFolder url="file://$MODULE_DIR$/project-THP/vendor/webmozart/assert" />
+      <excludeFolder url="file://$MODULE_DIR$/project-THP/vendor/spatie/laravel-package-tools" />
+      <excludeFolder url="file://$MODULE_DIR$/project-THP/vendor/spatie/laravel-tail" />
+      <excludeFolder url="file://$MODULE_DIR$/project-THP/vendor/spatie/ssh" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />

@@ -1568,53 +1568,59 @@ tokenable_id</ColNames>
     <column id="412" parent="314" name="password">
       <NotNull>1</NotNull>
       <Position>5</Position>
-      <StoredType>varchar(191)|0s</StoredType>
+      <StoredType>varchar(255)|0s</StoredType>
     </column>
-    <column id="413" parent="314" name="user_type">
-      <NotNull>1</NotNull>
+    <column id="413" parent="314" name="remember_token">
       <Position>6</Position>
-      <StoredType>enum(&apos;job_owner&apos;, &apos;artisan&apos;)|0e</StoredType>
+      <StoredType>varchar(100)|0s</StoredType>
     </column>
-    <column id="414" parent="314" name="status">
+    <column id="414" parent="314" name="user_type">
+      <NotNull>1</NotNull>
       <Position>7</Position>
-      <StoredType>enum(&apos;pending&apos;, &apos;approved&apos;, &apos;rejected&apos;)|0e</StoredType>
+      <StoredType>enum(&apos;job_owner&apos;, &apos;artisan&apos;, &apos;admain&apos;)|0e</StoredType>
     </column>
-    <column id="415" parent="314" name="created_at">
+    <column id="415" parent="314" name="status">
+      <DefaultExpression>&apos;inactive&apos;</DefaultExpression>
+      <NotNull>1</NotNull>
       <Position>8</Position>
-      <StoredType>timestamp|0s</StoredType>
+      <StoredType>enum(&apos;active&apos;, &apos;inactive&apos;, &apos;pending&apos;, &apos;approved&apos;, &apos;rejected&apos;)|0e</StoredType>
     </column>
-    <column id="416" parent="314" name="updated_at">
+    <column id="416" parent="314" name="created_at">
       <Position>9</Position>
       <StoredType>timestamp|0s</StoredType>
     </column>
-    <column id="417" parent="314" name="deleted_at">
+    <column id="417" parent="314" name="updated_at">
       <Position>10</Position>
       <StoredType>timestamp|0s</StoredType>
     </column>
-    <index id="418" parent="314" name="PRIMARY">
+    <column id="418" parent="314" name="deleted_at">
+      <Position>11</Position>
+      <StoredType>timestamp|0s</StoredType>
+    </column>
+    <index id="419" parent="314" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="419" parent="314" name="users_username_unique">
+    <index id="420" parent="314" name="users_username_unique">
       <ColNames>username</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <index id="420" parent="314" name="users_email_unique">
+    <index id="421" parent="314" name="users_email_unique">
       <ColNames>email</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="421" parent="314" name="PRIMARY">
+    <key id="422" parent="314" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
     </key>
-    <key id="422" parent="314" name="users_username_unique">
+    <key id="423" parent="314" name="users_username_unique">
       <UnderlyingIndexName>users_username_unique</UnderlyingIndexName>
     </key>
-    <key id="423" parent="314" name="users_email_unique">
+    <key id="424" parent="314" name="users_email_unique">
       <UnderlyingIndexName>users_email_unique</UnderlyingIndexName>
     </key>
   </database-model>
