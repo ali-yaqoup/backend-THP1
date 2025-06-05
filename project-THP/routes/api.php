@@ -76,7 +76,7 @@ Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) 
         return response()->json(['message' => 'المستخدم غير موجود'], 404);
     }
 
-    // تحقق من صحة الرابط (الهاش)
+    
     if (!hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
         return response()->json(['message' => 'رابط التحقق غير صالح'], 403);
     }
@@ -86,7 +86,7 @@ Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) 
     }
 
     $user->markEmailAsVerified();
-    $user->update(['status' => 'active']);
+    $user->update(['status' => 'pending']);
     event(new Verified($user));
 
     return response()->json(['message' => 'تم تفعيل البريد الإلكتروني وتحديث الحالة إلى active']);
