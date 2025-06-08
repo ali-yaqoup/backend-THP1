@@ -8,13 +8,32 @@ use App\Models\User;
 
 class AdminController extends Controller
 {
-    // Get all form posts with user relation
+    // ✅ Get authenticated user info
+    public function getAuthenticatedUserInfo()
+    {
+        $user = auth()->user();
+
+        if (!$user) {
+            return response()->json(['message' => 'Unauthorized'], 401);
+        }
+
+        return response()->json([
+            'id'         => $user->id,
+            'full_name'  => $user->full_name,
+            'email'      => $user->email,
+            'user_type'  => $user->user_type,
+            'status'     => $user->status,
+            'created_at' => $user->created_at,
+        ]);
+    }
+
+    // ✅ Get all form posts with related user
     public function getFormPosts()
     {
         return response()->json(FormPost::with('user')->get());
     }
 
-    // Count soft deleted form posts
+    // ✅ Count soft deleted form posts
     public function countRemovedPosts()
     {
         return response()->json([
@@ -22,7 +41,7 @@ class AdminController extends Controller
         ]);
     }
 
-    // Delete a form post by ID
+    // ✅ Delete form post by ID
     public function deleteFormPost($id)
     {
         $post = FormPost::find($id);
@@ -31,17 +50,16 @@ class AdminController extends Controller
         }
 
         $post->delete();
-
-        return response()->json(['message' => 'Form post deleted successfully'], 200);
+        return response()->json(['message' => 'Form post deleted successfully']);
     }
 
-    // Count all form posts
+    // ✅ Count all form posts
     public function countFormPosts()
     {
         return response()->json(['count' => FormPost::count()]);
     }
 
-    // Count users with account_type = 'Artisan'
+    // ✅ Count users with account_type = 'Artisan'
     public function countArtisans()
     {
         return response()->json([
@@ -49,7 +67,7 @@ class AdminController extends Controller
         ]);
     }
 
-    // Get all users with selected fields
+    // ✅ Get all users with specific fields
     public function getAllUsers()
     {
         return response()->json(
@@ -57,7 +75,7 @@ class AdminController extends Controller
         );
     }
 
-    // Delete user by ID
+    // ✅ Delete user by ID
     public function deleteUser($id)
     {
         $user = User::find($id);
@@ -70,14 +88,13 @@ class AdminController extends Controller
         return response()->json(['message' => 'User deleted successfully']);
     }
 
-    // Count all users
+    // ✅ Count all users
     public function countUsers()
     {
-        $count = User::count();
-        return response()->json(['count' => $count]);
+        return response()->json(['count' => User::count()]);
     }
 
-    // Get status for total, artisans, employers
+    // ✅ Get user stats
     public function getUserStats()
     {
         return response()->json([
@@ -89,15 +106,13 @@ class AdminController extends Controller
         ]);
     }
 
-    // Count soft deleted users
+    // ✅ Count soft deleted users
     public function countDeletedUsers()
     {
-        return response()->json([
-            'count' => User::onlyTrashed()->count()
-        ]);
+        return response()->json(['count' => User::onlyTrashed()->count()]);
     }
 
-    // Update user status (approved, rejected)
+    // ✅ Update user status (approved or rejected)
     public function updateUserStatus(Request $request, $id)
     {
         $request->validate([
@@ -111,12 +126,14 @@ class AdminController extends Controller
         return response()->json(['message' => 'User status updated successfully']);
     }
 
+    // ✅ Update user name and type
     public function updateUser(Request $request, $id)
     {
         $request->validate([
             'full_name' => 'required|string|max:255',
             'user_type' => 'required|in:artisan,job_owner'
         ]);
+
         $user = User::findOrFail($id);
         $user->full_name = $request->input('full_name');
         $user->user_type = $request->input('user_type');
