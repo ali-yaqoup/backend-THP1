@@ -1,4 +1,5 @@
 <?php
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Auth\Events\Verified;
@@ -10,29 +11,32 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BidController;
 
+// Public Routes
 Route::post('/register', [UserController::class, 'register']);
+Route::post('/login-step1', [AuthController::class, 'loginStep1']);
+Route::post('/login-step2', [AuthController::class, 'loginStep2']);
+Route::post('/password/send-otp', [AuthController::class, 'sendResetPasswordOtp']);
+Route::post('/password/reset', [AuthController::class, 'resetPassword']);
 
+// Authenticated & Verified Users
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
     });
 });
 
-Route::post('/login-step1', [AuthController::class, 'loginStep1']);
-Route::post('/login-step2', [AuthController::class, 'loginStep2']); 
-Route::post('/password/send-otp', [AuthController::class, 'sendResetPasswordOtp']);
-Route::post('/password/reset', [AuthController::class, 'resetPassword']);
-
+// Employer Routes
 Route::middleware(['auth:sanctum','employer'])->group(function () {
     Route::post('/posts', [FormPostController::class, 'store']);
     Route::put('/posts/{id}', [FormPostController::class, 'update']);
     Route::delete('/posts/{id}', [FormPostController::class, 'destroy']);
     Route::get('/posts/bids/{postId}', [BidController::class, 'getBidsByPost']);
     Route::put('/bids/{id}/status', [BidController::class, 'updateStatus']);
- Route::get('/posts', [FormPostController::class, 'index']);
- Route::get('/posts/{id}', [FormPostController::class, 'show']);
+    Route::get('/posts', [FormPostController::class, 'index']);
+    Route::get('/posts/{id}', [FormPostController::class, 'show']);
 });
 
+// Admin Routes
 Route::middleware(['auth:sanctum', \App\Http\Middleware\AdminMiddleware::class])->group(function () {
     // Admin - Users & Form Posts Management
     Route::get('/admin/users', [AdminController::class, 'getAllUsers']);
@@ -52,6 +56,7 @@ Route::middleware(['auth:sanctum', \App\Http\Middleware\AdminMiddleware::class])
     Route::get('/admin/user-stats', [AdminController::class, 'getUserStats']);
 });
 
+// Email Verification
 Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) {
     $user = User::find($id);
 
@@ -59,7 +64,6 @@ Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) 
         return response()->json(['message' => 'المستخدم غير موجود'], 404);
     }
 
-    
     if (!hash_equals((string) $hash, sha1($user->getEmailForVerification()))) {
         return response()->json(['message' => 'رابط التحقق غير صالح'], 403);
     }
@@ -74,5 +78,7 @@ Route::get('/email/verify/{id}/{hash}', function (Request $request, $id, $hash) 
 
     return response()->json(['message' => 'تم تفعيل البريد الإلكتروني وتحديث الحالة إلى active']);
 })->middleware(['signed'])->name('verification.verify');
+
+// Duplicate password reset routes (already declared above)
 Route::post('/password/send-otp', [AuthController::class, 'sendResetPasswordOtp']);
 Route::post('/password/reset', [AuthController::class, 'resetPassword']);
