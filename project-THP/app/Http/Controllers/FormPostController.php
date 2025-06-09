@@ -9,16 +9,12 @@ use App\Models\FormPost;
 
 class FormPostController extends Controller
 {
- public function index(Request $request): JsonResponse
-{
-  
-    $userId = $request->user()->id;
-
-
-    $posts = FormPost::where('user_id', $userId)->get();
-
-    return response()->json($posts);
-}
+    public function index(Request $request): JsonResponse
+    {
+        $userId = $request->user()->id;
+        $posts = FormPost::where('user_id', $userId)->get();
+        return response()->json($posts);
+    }
 
     public function show($id): JsonResponse
     {
@@ -41,9 +37,8 @@ class FormPostController extends Controller
             return response()->json(['message' => 'Post not found'], 404);
         }
 
-        // 🔒 تحقق من أن المستخدم هو مالك المنشور
         if ($post->user_id !== Auth::id()) {
-            return response()->json(['message' => 'غير مصرح لك بتعديل هذا المنشور'], 403);
+            return response()->json(['message' => 'You are not authorized to edit this post'], 403);
         }
 
         $this->savePost($request, $post);
@@ -58,9 +53,8 @@ class FormPostController extends Controller
             return response()->json(['message' => 'Post not found'], 404);
         }
 
-        // 🔒 تحقق من أن المستخدم هو مالك المنشور
         if ($post->user_id !== Auth::id()) {
-            return response()->json(['message' => 'غير مصرح لك بحذف هذا المنشور'], 403);
+            return response()->json(['message' => 'You are not authorized to delete this post'], 403);
         }
 
         $post->delete();
@@ -76,7 +70,7 @@ class FormPostController extends Controller
             $validated['attachments'] = $this->handleAttachment($request);
         }
 
-        $validated['user_id'] = Auth::id(); // ✅ تعيين المستخدم الحالي
+        $validated['user_id'] = Auth::id();
         $validated['status'] = $post ? $post->status : 'active';
 
         return $post
