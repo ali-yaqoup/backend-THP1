@@ -31,13 +31,13 @@ class FormPost extends Model
         'deadline' => 'date',
     ];
 
-    // علاقة: المنشور يخص مستخدم واحد
+  
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
-    // علاقة: المنشور يحتوي على عروض (bids)
+
     public function bids()
     {
         return $this->hasMany(Bid::class, 'post_id', 'post_id');
