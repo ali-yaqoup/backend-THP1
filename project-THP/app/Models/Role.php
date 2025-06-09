@@ -5,9 +5,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
-    protected $primaryKey = 'role_id';  // المفتاح الأساسي اسمه role_id
-    public $incrementing = true;        // المفتاح auto-increment
-    protected $keyType = 'int';         // نوع المفتاح int وليس string
+    protected $primaryKey = 'role_id';  
+    public $incrementing = true;        
+    protected $keyType = 'int';       
 
     protected $fillable = ['role_name'];
 
