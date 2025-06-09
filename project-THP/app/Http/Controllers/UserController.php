@@ -6,12 +6,10 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
 
 class UserController extends Controller
 {
-
-
     public function register(RegisterRequest $request)
     {
         try {
@@ -24,19 +22,25 @@ class UserController extends Controller
                 'password' => Hash::make($validated['password']),
                 'user_type' => $validated['user_type'],
                 'status' => 'pending',
+                
             ]);
 
-           
-            $user->sendEmailVerificationNotification();
+            if (method_exists($user, 'sendEmailVerificationNotification')) {
+                $user->sendEmailVerificationNotification();
+            }
 
             return response()->json([
-                'message' => 'User registered successfully! Please check your email to verify your account.',
-                'user' => $user
+                'status' => 'success',
+                'message' => 'تم تسجيل المستخدم بنجاح! الرجاء التحقق من بريدك الإلكتروني.',
+                'data' => $user,
             ], 201);
         } catch (\Exception $e) {
+            Log::error('Registration error: ' . $e->getMessage());
+
             return response()->json([
-                'message' => 'Registration failed!',
-                'error' => $e->getMessage()
+                'status' => 'error',
+                'message' => 'فشل تسجيل المستخدم!',
+                'error' => $e->getMessage(),
             ], 500);
         }
     }

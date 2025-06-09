@@ -16,6 +16,8 @@ return new class extends Migration {
             $table->string('password');
             $table->rememberToken();
             $table->enum('user_type', ['job_owner', 'artisan','admin']);
+           $table->unsignedBigInteger('role_id');
+            $table->foreign('role_id')->references('role_id')->on('roles')->onDelete('restrict')->onUpdate('cascade');
             $table->enum('status', ['active', 'inactive','pending','approved','rejected'])->default('active');
             $table->timestamps();
         });

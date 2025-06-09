@@ -19,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-
+       Schema::defaultStringLength(191);
 
         if ($this->app->environment('local')) {
             URL::forceRootUrl(config('app.url'));
