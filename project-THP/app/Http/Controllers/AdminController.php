@@ -8,7 +8,7 @@ use App\Models\User;
 
 class AdminController extends Controller
 {
-    // ✅ Get authenticated user info
+   
     public function getAuthenticatedUserInfo()
     {
         $user = auth()->user();
@@ -27,13 +27,12 @@ class AdminController extends Controller
         ]);
     }
 
-    // ✅ Get all form posts with related user
+  
     public function getFormPosts()
     {
         return response()->json(FormPost::with('user')->get());
     }
 
-    // ✅ Count soft deleted form posts
     public function countRemovedPosts()
     {
         return response()->json([
@@ -41,7 +40,6 @@ class AdminController extends Controller
         ]);
     }
 
-    // ✅ Delete form post by ID
     public function deleteFormPost($id)
     {
         $post = FormPost::find($id);
@@ -53,13 +51,11 @@ class AdminController extends Controller
         return response()->json(['message' => 'Form post deleted successfully']);
     }
 
-    // ✅ Count all form posts
     public function countFormPosts()
     {
         return response()->json(['count' => FormPost::count()]);
     }
 
-    // ✅ Count users with account_type = 'Artisan'
     public function countArtisans()
     {
         return response()->json([
@@ -67,7 +63,6 @@ class AdminController extends Controller
         ]);
     }
 
-    // ✅ Get all users with specific fields
     public function getAllUsers()
     {
         return response()->json(
@@ -75,7 +70,6 @@ class AdminController extends Controller
         );
     }
 
-    // ✅ Delete user by ID
     public function deleteUser($id)
     {
         $user = User::find($id);
@@ -88,13 +82,11 @@ class AdminController extends Controller
         return response()->json(['message' => 'User deleted successfully']);
     }
 
-    // ✅ Count all users
     public function countUsers()
     {
         return response()->json(['count' => User::count()]);
     }
 
-    // ✅ Get user stats
     public function getUserStats()
     {
         return response()->json([
@@ -106,13 +98,11 @@ class AdminController extends Controller
         ]);
     }
 
-    // ✅ Count soft deleted users
     public function countDeletedUsers()
     {
         return response()->json(['count' => User::onlyTrashed()->count()]);
     }
 
-    // ✅ Update user status (approved or rejected)
     public function updateUserStatus(Request $request, $id)
     {
         $request->validate([
@@ -126,7 +116,6 @@ class AdminController extends Controller
         return response()->json(['message' => 'User status updated successfully']);
     }
 
-    // ✅ Update user name and type
     public function updateUser(Request $request, $id)
     {
         $request->validate([
