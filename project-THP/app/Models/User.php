@@ -44,7 +44,7 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsTo(Role::class, 'role_id');
     }
 
-    // الحدث الذي يعين role_id حسب user_type
+ 
     protected static function boot()
     {
         parent::boot();
@@ -62,7 +62,7 @@ class User extends Authenticatable implements MustVerifyEmail
                         $user->role_id = 3;
                         break;
                     default:
-                        $user->role_id = null; // أو رقم افتراضي
+                        $user->role_id = null; 
                 }
             }
         });
