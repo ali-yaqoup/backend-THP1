@@ -18,28 +18,15 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });
 });
 
-
 Route::post('/login-step1', [AuthController::class, 'loginStep1']);
 Route::post('/login-step2', [AuthController::class, 'loginStep2']); 
 Route::post('/password/send-otp', [AuthController::class, 'sendResetPasswordOtp']);
 Route::post('/password/reset', [AuthController::class, 'resetPassword']);
 
-// Form Posts (Public/User)
-Route::get('/form-posts', [FormPostController::class, 'index']);
-Route::get('/form-posts/{id}', [FormPostController::class, 'show']);
-Route::post('/form-posts', [FormPostController::class, 'store']);
-Route::put('/form-posts/{id}', [FormPostController::class, 'update']);
-Route::delete('/form-posts/{id}', [FormPostController::class, 'destroy']);
-Route::get('/form-posts-deleted-count', [FormPostController::class, 'countDeleted']);
-
-
-
-
-Route::middleware(['auth:sanctum',IsEmployer::class])->group(function () {
+Route::middleware(['auth:sanctum','employer'])->group(function () {
     Route::post('/posts', [FormPostController::class, 'store']);
     Route::put('/posts/{id}', [FormPostController::class, 'update']);
     Route::delete('/posts/{id}', [FormPostController::class, 'destroy']);
-  
     Route::get('/posts/bids/{postId}', [BidController::class, 'getBidsByPost']);
     Route::put('/bids/{id}/status', [BidController::class, 'updateStatus']);
  Route::get('/posts', [FormPostController::class, 'index']);
