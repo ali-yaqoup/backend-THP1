@@ -11,10 +11,10 @@ class FormPostController extends Controller
 {
  public function index(Request $request): JsonResponse
 {
-    // نجيب الـ user_id من المستخدم المسجل دخول
+  
     $userId = $request->user()->id;
 
-    // نسترجع المنشورات الخاصة بهذا المستخدم فقط
+
     $posts = FormPost::where('user_id', $userId)->get();
 
     return response()->json($posts);
