@@ -14,6 +14,7 @@ class Bid extends Model
         'user_id',
         'job_title',
         'client_name',
+        'phone',
         'price',
         'submission_date',
         'status',
