@@ -11,6 +11,7 @@ return new class extends Migration {
             $table->unsignedBigInteger('user_id');
             $table->string('job_title');
             $table->string('client_name');
+            $table->string('phone')->nullable(); 
             $table->decimal('price', 10, 2);
             $table->date('submission_date');
             $table->enum('status', ['Pending', 'Approved', 'Rejected'])->default('Pending');
