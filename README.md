@@ -1,4 +1,4 @@
-﻿# Technician Hiring Platform â€” Backend API
+# Technician Hiring Platform — Backend API
 
 A Laravel REST API that powers a technical hiring platform, connecting job owners (employers) who post work requests with artisans (technicians) who bid on them. Designed to be consumed by the companion Angular frontend, [Project-THP](https://github.com/ali-yaqoup/Backend-THP/tree/master/project-THP).
 
@@ -13,21 +13,21 @@ A Laravel REST API that powers a technical hiring platform, connecting job owner
 | PHP | ^8.2 |
 | Laravel Framework | ^12.0 |
 | Laravel Sanctum | ^4.1 |
-| MySQL / MariaDB | â€” |
+| MySQL / MariaDB | — |
 | PHPUnit | ^11.5 |
 
 ---
 
 ## Features
 
-- **Three-role user system** â€” Employer, Artisan, and Admin roles stored via a `Role` model
-- **Two-step login with OTP** â€” Login proceeds in two steps (`/login-step1`, `/login-step2`) with an `LoginOtp` model backing it
-- **Email verification** â€” Signed email-verification link marks users as verified and sets their status to `pending`
-- **Password reset via OTP** â€” Send and verify an OTP to reset a password
-- **Job post management** â€” Employers create, update, and soft-delete `FormPost` records with file attachments
-- **Bidding system** â€” Artisans submit bids on posts (`Bid` model); employers view bids per post and accept or reject them
-- **Admin moderation** â€” Admin endpoints for listing/deleting users and posts, toggling user status, and viewing platform statistics (user counts, post counts, deleted-record counts)
-- **JSON-only API** â€” All responses are JSON; no server-rendered views
+- **Three-role user system** — Employer, Artisan, and Admin roles stored via a `Role` model
+- **Two-step login with OTP** — Login proceeds in two steps (`/login-step1`, `/login-step2`) with an `LoginOtp` model backing it
+- **Email verification** — Signed email-verification link marks users as verified and sets their status to `pending`
+- **Password reset via OTP** — Send and verify an OTP to reset a password
+- **Job post management** — Employers create, update, and soft-delete `FormPost` records with file attachments
+- **Bidding system** — Artisans submit bids on posts (`Bid` model); employers view bids per post and accept or reject them
+- **Admin moderation** — Admin endpoints for listing/deleting users and posts, toggling user status, and viewing platform statistics (user counts, post counts, deleted-record counts)
+- **JSON-only API** — All responses are JSON; no server-rendered views
 
 ---
 
@@ -134,3 +134,5 @@ This backend is built to serve the **Project-THP** Angular frontend, which is in
 Copyright © 2026 Ali Yaqoub. All rights reserved.
 
 This software and its contents are proprietary. Unauthorized copying, distribution, modification, or commercial use is prohibited without prior written permission from the copyright holder.
+
+See the [LICENSE](./LICENSE) file for the full notice.
